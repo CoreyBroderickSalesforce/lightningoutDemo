@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Portal | Lightning Out POC</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="page page-support">
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="index.html" aria-label="Support Portal home">
+        <img src="assets/img/logo-mark.svg" alt="" class="brand-mark">
+        <span class="brand-text">Support Portal POC</span>
+      </a>
+      <nav class="header-links" aria-label="Primary">
+        <a href="index.html" aria-current="page">Support</a>
+        <a href="host.html">Lightning Tool</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-content">
+        <div class="hero-copy">
+          <p class="kicker">Proof of Concept</p>
+          <h1>How can we help?</h1>
+          <p>
+            This mock support page is styled after a shipping support portal and is used to launch a
+            Salesforce Lightning Out component host with a manually entered Session ID.
+          </p>
+          <form id="session-form" class="session-form" novalidate>
+            <label for="session-id">Salesforce Session ID</label>
+            <input id="session-id" name="sessionId" type="password" autocomplete="off" placeholder="Enter Session ID">
+            <p class="helper-text">For this POC only, the Session ID is saved in sessionStorage for the current browser tab.</p>
+            <p id="session-error" class="form-error" role="alert" hidden>Please enter a valid Session ID.</p>
+            <button type="submit" class="btn-primary">Continue to Lightning Host</button>
+          </form>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/img/hero-boxes.svg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section class="tile-section">
+      <div class="wrap">
+        <h2>Browse popular topics</h2>
+        <div class="tile-grid">
+          <article class="tile">
+            <img src="assets/img/icon-track.svg" alt="" class="tile-icon">
+            <h3>Tracking Support</h3>
+            <p>Track a package, review statuses, and resolve delivery visibility issues.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+          <article class="tile">
+            <img src="assets/img/icon-mail.svg" alt="" class="tile-icon">
+            <h3>Mail Delivery</h3>
+            <p>Get help with incorrect delivery addresses, returns, or missing letters.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+          <article class="tile">
+            <img src="assets/img/icon-lock.svg" alt="" class="tile-icon">
+            <h3>Mailbox Issues</h3>
+            <p>Request assistance with key replacement, lock concerns, or access changes.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+          <article class="tile">
+            <img src="assets/img/icon-rate.svg" alt="" class="tile-icon">
+            <h3>Rates and Tools</h3>
+            <p>Use calculators and service tools to estimate costs and delivery options.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+          <article class="tile">
+            <img src="assets/img/icon-briefcase.svg" alt="" class="tile-icon">
+            <h3>Business Resources</h3>
+            <p>Support for pickup scheduling, labels, and shipping services for teams.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+          <article class="tile">
+            <img src="assets/img/icon-claim.svg" alt="" class="tile-icon">
+            <h3>Lost, Late, Damaged</h3>
+            <p>Start claims and issue requests for delayed, missing, or damaged packages.</p>
+            <button class="tile-btn" type="button" disabled>View Topic</button>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Styling inspiration for this POC:</p>
+      <ul>
+        <li><a href="https://www.canadapost-postescanada.ca/" target="_blank" rel="noopener noreferrer">Canada Post Home</a></li>
+        <li><a href="https://www.canadapost-postescanada.ca/cpc/en/support.page" target="_blank" rel="noopener noreferrer">Canada Post Support</a></li>
+        <li><a href="https://www.canadapost-postescanada.ca/cpc/en/tools/find-a-rate.page" target="_blank" rel="noopener noreferrer">Canada Post Find a Rate</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

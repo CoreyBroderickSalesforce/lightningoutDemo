@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280" role="img" aria-label="Shipping boxes illustration">
+  <rect x="8" y="34" width="344" height="220" rx="14" fill="#eaf3fe" stroke="#c5d8ef"/>
+  <rect x="40" y="70" width="110" height="90" rx="8" fill="#f3c300" stroke="#d8a800"/>
+  <rect x="162" y="92" width="146" height="112" rx="10" fill="#003e7e"/>
+  <rect x="66" y="164" width="100" height="68" rx="8" fill="#ffffff" stroke="#bfd2e8"/>
+  <path d="M40 115h110M162 148h146M66 198h100" stroke="#1b4f86" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+</svg>

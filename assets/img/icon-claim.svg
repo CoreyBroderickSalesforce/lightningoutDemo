@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Claim icon">
+  <circle cx="24" cy="24" r="23" fill="#edf4fb" stroke="#9fc0e5"/>
+  <path d="M24 12l13 23H11z" fill="#f3c300" stroke="#c59a00"/>
+  <path d="M24 19v8M24 31h.01" stroke="#003e7e" stroke-width="3" stroke-linecap="round"/>
+</svg>

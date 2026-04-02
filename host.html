@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find a Rate Tool | Lightning Out POC</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="page page-tool">
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="index.html" aria-label="Support Portal home">
+        <img src="assets/img/logo-mark.svg" alt="" class="brand-mark">
+        <span class="brand-text">Support Portal POC</span>
+      </a>
+      <nav class="header-links" aria-label="Primary">
+        <a href="index.html">Support</a>
+        <a href="host.html" aria-current="page">Lightning Tool</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="tool-shell">
+      <div class="wrap">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="index.html">Support</a>
+          <span>/</span>
+          <span>Tools</span>
+          <span>/</span>
+          <strong>Find a Rate (Lightning Out Host)</strong>
+        </nav>
+
+        <div class="tool-header">
+          <h1>Find a Rate</h1>
+          <p>This area is reserved for a Lightning Out component mount.</p>
+        </div>
+
+        <section class="lightning-card" aria-labelledby="lightning-host-title">
+          <div class="lightning-card-head">
+            <h2 id="lightning-host-title">Lightning Out Component Host</h2>
+            <button id="clear-session" type="button" class="btn-secondary">Clear Session</button>
+          </div>
+          <p id="session-state" class="status-line" role="status"></p>
+          <div id="lightning-out-root" class="lightning-root" aria-live="polite">
+            <p class="placeholder-copy">Initializing Lightning Out container...</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Styling inspiration for this POC:</p>
+      <ul>
+        <li><a href="https://www.canadapost-postescanada.ca/" target="_blank" rel="noopener noreferrer">Canada Post Home</a></li>
+        <li><a href="https://www.canadapost-postescanada.ca/cpc/en/support.page" target="_blank" rel="noopener noreferrer">Canada Post Support</a></li>
+        <li><a href="https://www.canadapost-postescanada.ca/cpc/en/tools/find-a-rate.page" target="_blank" rel="noopener noreferrer">Canada Post Find a Rate</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/lightning-config.js"></script>
+  <script src="assets/js/host.js"></script>
+</body>
+</html>
