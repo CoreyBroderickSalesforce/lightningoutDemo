@@ -112,6 +112,9 @@
         var perComponentAttrs =
           (config.componentAttributes && config.componentAttributes[componentTag]) || {};
         applyAttributes(componentEl, perComponentAttrs);
+        componentEl.style.display = componentEl.style.display || "block";
+        componentEl.style.width = componentEl.style.width || "100%";
+        componentEl.style.maxWidth = componentEl.style.maxWidth || "100%";
         mount.appendChild(componentEl);
       });
     };

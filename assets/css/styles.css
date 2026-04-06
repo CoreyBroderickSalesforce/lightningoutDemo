@@ -310,7 +310,19 @@ h1 {
 .placeholder-ready {
   display: grid;
   gap: 0.55rem;
-  max-width: 640px;
+  width: 100%;
+  max-width: none;
+}
+
+#lightning-component-slot,
+#lightning-component-slot > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+lightning-out-application {
+  display: block;
+  width: 100%;
 }
 
 code {
