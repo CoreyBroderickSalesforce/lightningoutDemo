@@ -5,6 +5,8 @@ window.LightningOutPOCConfig = {
   appId: "1UsAw00000000fxKAA",
   components: ["c-current-cases-list"],
   componentAttributes: {
-    "c-current-cases-list": {}
+    "c-current-cases-list": {
+      requireSessionId: true
+    }
   }
 };

@@ -109,8 +109,17 @@
       mount.innerHTML = "";
       components.forEach(function (componentTag) {
         var componentEl = document.createElement(componentTag);
-        var perComponentAttrs =
-          (config.componentAttributes && config.componentAttributes[componentTag]) || {};
+        var perComponentAttrs = Object.assign(
+          {},
+          (config.componentAttributes && config.componentAttributes[componentTag]) || {}
+        );
+
+        // For this POC, always pass the manually entered Session ID to components.
+        perComponentAttrs.sessionId = sessionId;
+        if (perComponentAttrs.requireSessionId === undefined) {
+          perComponentAttrs.requireSessionId = true;
+        }
+
         applyAttributes(componentEl, perComponentAttrs);
         componentEl.style.display = componentEl.style.display || "block";
         componentEl.style.width = componentEl.style.width || "100%";
