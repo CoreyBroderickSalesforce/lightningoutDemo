@@ -35,26 +35,112 @@
     document.head.appendChild(script);
   }
 
-  function initializeLightning() {
-    try {
-      window.$Lightning.use(
-        config.lightningApp,
-        function () {
-          window.$Lightning.createComponent(
-            config.componentName,
-            config.componentAttributes || {},
-            "lightning-component-slot",
-            function () {
-              setState("Lightning Out component loaded successfully.", false);
-            }
-          );
-        },
-        config.lightningEndPoint,
-        sessionId
-      );
-    } catch (error) {
-      setState("Lightning Out init failed: " + error.message, true);
+  function toKebabCaseName(value) {
+    if (!value) {
+      return "";
     }
+    if (value.indexOf("-") >= 0) {
+      return value.toLowerCase();
+    }
+    return value.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+  }
+
+  function normalizeComponentNames(rawComponents) {
+    if (!rawComponents) {
+      return [];
+    }
+
+    var list = Array.isArray(rawComponents) ? rawComponents : String(rawComponents).split(",");
+    return list
+      .map(function (name) {
+        return toKebabCaseName(String(name || "").trim());
+      })
+      .filter(function (name) {
+        return name.length > 0;
+      });
+  }
+
+  function buildFrontdoorUrl(endpoint, sid) {
+    var base = String(endpoint || "").replace(/\/+$/, "");
+    return base + "/secur/frontdoor.jsp?sid=" + encodeURIComponent(sid);
+  }
+
+  function applyAttributes(element, attributes) {
+    if (!attributes || typeof attributes !== "object") {
+      return;
+    }
+
+    Object.keys(attributes).forEach(function (key) {
+      var value = attributes[key];
+      if (value === undefined || value === null) {
+        return;
+      }
+      if (typeof value === "object") {
+        element[key] = value;
+        return;
+      }
+      element.setAttribute(key, String(value));
+    });
+  }
+
+  function initializeLightningOut2() {
+    var components = normalizeComponentNames(config.components);
+    var mount = document.getElementById("lightning-component-slot");
+
+    if (!mount) {
+      setState("Lightning Out mount element is missing.", true);
+      return;
+    }
+
+    if (!config.lightningEndPoint || !config.appId || components.length === 0) {
+      setState(
+        "Missing LO2 config. Set lightningEndPoint, appId, and components in lightning-config.js.",
+        true
+      );
+      return;
+    }
+
+    var loApp = document.createElement("lightning-out-application");
+    loApp.setAttribute("app-id", config.appId);
+    loApp.setAttribute("components", components.join(","));
+    loApp.setAttribute("frontdoor-url", buildFrontdoorUrl(config.lightningEndPoint, sessionId));
+
+    var renderComponents = function () {
+      mount.innerHTML = "";
+      components.forEach(function (componentTag) {
+        var componentEl = document.createElement(componentTag);
+        var perComponentAttrs =
+          (config.componentAttributes && config.componentAttributes[componentTag]) || {};
+        applyAttributes(componentEl, perComponentAttrs);
+        mount.appendChild(componentEl);
+      });
+    };
+
+    loApp.addEventListener("lo.application.ready", function () {
+      setState("Lightning Out 2.0 session established.", false);
+      renderComponents();
+    });
+
+    loApp.addEventListener("lo.application.error", function (event) {
+      var message = event && event.detail && event.detail.message
+        ? event.detail.message
+        : "Unable to establish Lightning Out 2.0 session.";
+      setState(message, true);
+    });
+
+    loApp.addEventListener("lo.component.ready", function () {
+      setState("Lightning Out 2.0 component loaded successfully.", false);
+    });
+
+    loApp.addEventListener("lo.component.error", function (event) {
+      var message = event && event.detail && event.detail.message
+        ? event.detail.message
+        : "Lightning Out 2.0 component failed to render.";
+      setState(message, true);
+    });
+
+    root.appendChild(loApp);
+    setState("Initializing Lightning Out 2.0 application...", false);
   }
 
   if (clearButton) {
@@ -71,21 +157,16 @@
   setState("Session loaded: " + maskSession(sessionId), false);
 
   var hasRequiredConfig =
-    config.lightningEndPoint && config.lightningApp && config.componentName;
+    config.lightningEndPoint && config.appId && normalizeComponentNames(config.components).length;
 
   if (!hasRequiredConfig) {
     root.innerHTML =
-      '<div class="placeholder-ready"><h3>Lightning Out placeholder ready</h3><p>Set <code>lightningEndPoint</code>, <code>lightningApp</code>, and <code>componentName</code> in <code>assets/js/lightning-config.js</code> to initialize a real component.</p></div>';
+      '<div class="placeholder-ready"><h3>Lightning Out 2.0 placeholder ready</h3><p>Set <code>lightningEndPoint</code>, <code>appId</code>, and <code>components</code> in <code>assets/js/lightning-config.js</code> to initialize a real component.</p></div>';
     return;
   }
 
   root.innerHTML =
-    '<div class="placeholder-ready"><h3>Attempting Lightning Out initialization...</h3><p>If your Salesforce endpoint allows access and the app/component are valid, content will load below.</p><div id="lightning-component-slot"></div></div>';
-
-  if (window.$Lightning && typeof window.$Lightning.use === "function") {
-    initializeLightning();
-    return;
-  }
+    '<div class="placeholder-ready"><h3>Attempting Lightning Out 2.0 initialization...</h3><p>If your Salesforce endpoint allows access and the app/component are valid, content will load below.</p><div id="lightning-component-slot"></div></div>';
 
   if (!config.lightningOutScriptUrl) {
     setState(
@@ -95,15 +176,20 @@
     return;
   }
 
+  if (customElements.get("lightning-out-application")) {
+    initializeLightningOut2();
+    return;
+  }
+
   setState("Loading Lightning Out script...", false);
   loadScript(
     config.lightningOutScriptUrl,
     function () {
-      if (!window.$Lightning || typeof window.$Lightning.use !== "function") {
-        setState("Lightning Out script loaded, but $Lightning is unavailable.", true);
+      if (!customElements.get("lightning-out-application")) {
+        setState("Lightning Out 2.0 script loaded, but web components are unavailable.", true);
         return;
       }
-      initializeLightning();
+      initializeLightningOut2();
     },
     function () {
       setState("Failed to load Lightning Out script URL.", true);

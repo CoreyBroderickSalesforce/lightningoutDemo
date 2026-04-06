@@ -21,21 +21,26 @@ python3 -m http.server 8080
 
 Then browse to `http://localhost:8080`.
 
-## Configure Lightning Out
+## Configure Lightning Out 2.0
 
 Edit `assets/js/lightning-config.js`:
 
-- `lightningOutScriptUrl`: URL to `lightning.out.js`.
+- `lightningOutScriptUrl`: URL to your org's Lightning Out 2.0 script.
 - `lightningEndPoint`: Salesforce domain endpoint.
-- `lightningApp`: Aura app name used for Lightning Out.
-- `componentName`: component to render.
-- `componentAttributes`: attributes passed to component.
+- `appId`: 18-character Lightning Out 2.0 app ID.
+- `components`: array (or comma-separated string) of component tag names, for example `c-current-cases-list`.
+- `componentAttributes`: optional per-component attributes keyed by component tag.
+
+The host integration uses `lightning-out-application` and builds `frontdoor-url` at runtime from:
+
+- `lightningEndPoint`
+- the manually entered Session ID (stored in `sessionStorage` for this POC)
 
 For this POC:
 
 1. Open the landing page and enter a valid Session ID manually.
 2. Submit to go to `host.html`.
-3. The host page uses that Session ID from `sessionStorage`.
+3. The host page uses that Session ID from `sessionStorage` to initialize Lightning Out 2.0.
 
 ## Deploy to GitHub Pages
 
